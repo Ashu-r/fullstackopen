@@ -2,26 +2,34 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const Statistics = ({ good, neutral, bad }) => {
-	// total score
-	const total = good + neutral + bad;
+	if (good || neutral || bad) {
+		// total score
+		const total = good + neutral + bad;
 
-	// 1 score for good, 0 score for neutral and -1 score for bad
-	const average = (good - bad) / total;
+		// 1 score for good, 0 score for neutral and -1 score for bad
+		const average = (good - bad) / total;
 
-	// percentage of good votes
-	const positive = good / total * 100;
+		// percentage of good votes
+		const positive = good / total * 100;
 
-	return (
-		<div>
-			<h2>statistics</h2>
-			<p>good: {good}</p>
-			<p>neutral: {neutral}</p>
-			<p>bad: {bad}</p>
-			<p>total: {total}</p>
-			<p>average: {average ? average : 0}</p>
-			<p>positive: {positive ? positive : 0}%</p>
-		</div>
-	);
+		return (
+			<div>
+				<h2>statistics</h2>
+				<p>good: {good}</p>
+				<p>neutral: {neutral}</p>
+				<p>bad: {bad}</p>
+				<p>total: {total}</p>
+				<p>average: {average ? average : 0}</p>
+				<p>positive: {positive ? positive : 0}%</p>
+			</div>
+		);
+	} else {
+		return (
+			<div>
+				<h4>No feedback given</h4>
+			</div>
+		);
+	}
 };
 
 const App = () => {
