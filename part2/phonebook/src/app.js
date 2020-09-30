@@ -6,10 +6,15 @@ const App = () => {
 
 	const addName = (event) => {
 		event.preventDefault();
-		const newPersonObj = {
-			name: newName
-		};
-		setPersons(persons.concat(newPersonObj));
+		console.log();
+		if (persons.map((person) => person.name).indexOf(newName) === -1) {
+			const newPersonObj = {
+				name: newName
+			};
+			setPersons(persons.concat(newPersonObj));
+		} else {
+			alert(`${newName} is already added to the phonebook`);
+		}
 		setNewName('');
 	};
 
