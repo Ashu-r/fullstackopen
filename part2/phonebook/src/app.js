@@ -66,7 +66,7 @@ const App = () => {
 			/>
 
 			<h2>Numbers</h2>
-			<Persons display={display} persons={persons} />
+			<Persons display={display} setPersons={setPersons} persons={persons} />
 		</div>
 	);
 };
