@@ -14,8 +14,14 @@ const getAll = () => {
 const deleteContact = (id) => {
 	return axios.delete(baseUrl + id);
 };
+
+const updateNumber = (id, newObject) => {
+	const request = axios.put(`${baseUrl}${id}`, newObject);
+	return request.then((response) => response.data);
+};
 export default {
 	create,
 	getAll,
-	deleteContact
+	deleteContact,
+	updateNumber
 };

@@ -19,7 +19,8 @@ const App = () => {
 
 	const addName = (event) => {
 		event.preventDefault();
-		if (persons.map((person) => person.name).indexOf(newName) === -1) {
+		const currentPerson = persons.find((p) => p.name === newName);
+		if (!currentPerson) {
 			const newPersonObj = {
 				name: newName,
 				number: newNumber
@@ -33,7 +34,16 @@ const App = () => {
 
 			// setPersons(persons.concat(newPersonObj));
 		} else {
-			alert(`${newName} is already added to the phonebook`);
+			const updatePrompt = window.confirm(
+				`${newName} is already added to the phonebook, replace old number with new one?`
+			);
+			if (updatePrompt) {
+				const updatedPerson = { ...currentPerson, number: newNumber };
+				personService.updateNumber(currentPerson.id, updatedPerson).then((response) => {
+					const temp = persons.map((person) => (person.id !== currentPerson.id ? person : response));
+					setPersons(temp);
+				});
+			}
 		}
 	};
 

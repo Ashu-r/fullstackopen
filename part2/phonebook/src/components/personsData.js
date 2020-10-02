@@ -16,22 +16,25 @@ const Persons = ({ display, persons, setPersons }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{(display ? display : persons).map((person) => (
-						<tr key={person.name}>
-							<td>{person.name}</td>
-							<td>{person.number}</td>
-							<td>
-								<button
-									onClick={() =>
-										window.confirm(`Delete ${person.name}?`)
-											? deletePerson(person.id)
-											: console.log('delete canceled')}
-								>
-									Delete
-								</button>
-							</td>
-						</tr>
-					))}
+					{(display ? display : persons).map((person) => {
+						// console.log(person);
+						return (
+							<tr key={person.name}>
+								<td>{person.name}</td>
+								<td>{person.number}</td>
+								<td>
+									<button
+										onClick={() =>
+											window.confirm(`Delete ${person.name}?`)
+												? deletePerson(person.id)
+												: console.log('delete canceled')}
+									>
+										Delete
+									</button>
+								</td>
+							</tr>
+						);
+					})}
 				</tbody>
 			</table>
 		</div>
