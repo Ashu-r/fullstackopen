@@ -24,12 +24,17 @@ const App = () => {
 				name: newName,
 				number: newNumber
 			};
-			setPersons(persons.concat(newPersonObj));
+
+			axios.post('http://localhost:3001/persons', newPersonObj).then((response) => {
+				setPersons(persons.concat(response.data));
+				setNewName('');
+				setNewNumber('');
+			});
+
+			// setPersons(persons.concat(newPersonObj));
 		} else {
 			alert(`${newName} is already added to the phonebook`);
 		}
-		setNewName('');
-		setNewNumber('');
 	};
 
 	const handleNameChange = (event) => {
