@@ -3,13 +3,14 @@ import AddPersonForm from './components/form';
 import Filter from './components/filter';
 import Persons from './components/personsData';
 import personService from './services/persons';
+import Notification from './components/notification';
 
 const App = () => {
 	const [ persons, setPersons ] = useState([]);
 	const [ display, setDisplay ] = useState(null);
 	const [ newName, setNewName ] = useState('');
 	const [ newNumber, setNewNumber ] = useState('');
-
+	const [ message, setMessage ] = useState(null);
 	useEffect(() => {
 		personService.getAll().then((initialPhonebook) => {
 			console.log('persons acquired');
@@ -32,6 +33,11 @@ const App = () => {
 				setNewNumber('');
 			});
 
+			setMessage(`Added ${newPersonObj.name}`);
+			setTimeout(() => {
+				setMessage(null);
+			}, 5000);
+
 			// setPersons(persons.concat(newPersonObj));
 		} else {
 			const updatePrompt = window.confirm(
@@ -39,10 +45,17 @@ const App = () => {
 			);
 			if (updatePrompt) {
 				const updatedPerson = { ...currentPerson, number: newNumber };
-				personService.updateNumber(currentPerson.id, updatedPerson).then((response) => {
-					const temp = persons.map((person) => (person.id !== currentPerson.id ? person : response));
-					setPersons(temp);
-				});
+				personService
+					.updateNumber(currentPerson.id, updatedPerson)
+					.then((response) => {
+						setPersons(persons.map((person) => (person.id !== currentPerson.id ? person : response)));
+					})
+					.catch((error) => {
+						setMessage(`information of ${newName} has already removed from server`);
+						setTimeout(() => {
+							setMessage(null);
+						}, 5000);
+					});
 			}
 		}
 	};
@@ -65,6 +78,7 @@ const App = () => {
 	return (
 		<div>
 			<h2>Phonebook</h2>
+			<Notification message={message} />
 			<Filter filterByName={filterByName} />
 			<h3>Add New</h3>
 			<AddPersonForm
