@@ -10,3 +10,5 @@ This repository contains Part 0, Part 1 and Part 2 exercises of [fullstackopen](
 
 ## Links for other parts:
 - **Part 3:** [Programming a server with NodeJS and Express](https://github.com/Ashu-r/fullstackopen-part3)
+- **Part 4:** [Testing Express servers, user administration](https://github.com/Ashu-r/fullstackopen-part4)
+
